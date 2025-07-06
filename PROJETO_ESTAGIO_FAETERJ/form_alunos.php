@@ -1,5 +1,5 @@
 <?php 
-    session_start(); 
+    session_start();  
     include_once 'conexao/db_connect.php';
     include_once 'functions/exibicao/exibicao.php';
     include_once 'functions/selecao/selecao.php';
