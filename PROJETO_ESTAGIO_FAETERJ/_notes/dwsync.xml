@@ -18,5 +18,6 @@
 <file name="form_unidades.php" server="C:/xampp/htdocs/PROJETO_ESTAGIO_FAETERJ/" local="133962063353430554" remote="133962063350000000" Dst="0" />
 <file name="form_localidades.php" server="C:/xampp/htdocs/PROJETO_ESTAGIO_FAETERJ/" local="133960260901460033" remote="133960260900000000" Dst="0" />
 <file name="form_seguradora.php" server="C:/xampp/htdocs/PROJETO_ESTAGIO_FAETERJ/" local="133960259879146213" remote="133960259870000000" Dst="0" />
-<file name="login.php" server="C:/xampp/htdocs/PROJETO_ESTAGIO_FAETERJ/" local="133965564404996468" remote="133965564400000000" Dst="0" />
+<file name="login.php" server="C:/xampp/htdocs/PROJETO_ESTAGIO_FAETERJ/" local="133970005139210065" remote="133970005130000000" Dst="0" />
+<file name="valida_login.php" server="C:/xampp/htdocs/PROJETO_ESTAGIO_FAETERJ/" local="133970007469330634" remote="133970007460000000" Dst="0" />
 </dwsync>

@@ -107,19 +107,24 @@
   <!-- Lado direito -->
   <div class="login-right d-flex align-items-center justify-content-center">
     <div class="card shadow border-0 p-5" style="width: 100%; max-width: 500px;">
-      <h4 class="text-center mb-4">Entrar no Sistema</h4>
+      <h4 class="text-center mb-4">Login</h4>
+      <?php if (isset($_SESSION['erro_login'])): ?>
+      <div class="alert alert-danger text-center">
+        <?= $_SESSION['erro_login']; unset($_SESSION['erro_login']); ?>
+      </div>
+      <?php endif; ?>
 
       <form action="valida_login.php" method="post">
         <div class="row g-3">
 
           <div class="col-md-6">
             <label for="id_funcional/matricula" class="form-label">ID Funcional ou Matrícula</label>
-            <input type="text" class="form-control" id="id_funcional/matricula" name="id_funcional/matricula" required>
+            <input type="text" class="form-control" id="identificador" name="identificador" required>
           </div>
 
           <div class="col-md-6">
             <label for="acesso" class="form-label">Tipo de Acesso</label>
-            <select class="form-select" id="acesso" name="acesso" required>
+            <select class="form-select" id="tipo_acesso" name="tipo_acesso" required>
               <option value="">Selecione</option>
               <option value="aluno">Aluno</option>
               <option value="admin">Administrador</option>
