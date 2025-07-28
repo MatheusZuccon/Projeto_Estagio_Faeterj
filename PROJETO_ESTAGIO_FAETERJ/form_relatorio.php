@@ -1,4 +1,18 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include_once "conexao/db_connect.php"; 
+
+try {
+    $stmt = $conn->prepare("SELECT matricula, nome FROM alunos ORDER BY nome ASC");
+    $stmt->execute();
+    $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erro ao buscar alunos: " . $e->getMessage();
+    exit;
+}
+?>
+
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -174,8 +188,17 @@
             <td colspan="3"><input type="text" class="form-control" id="nome" name="nome"></td>
           </tr>
           <tr>
-            <td><label class="form-label" for="matricula">Matrícula</label></td>
-            <td colspan="3"><input type="text" class="form-control" id="matricula" name="matricula"></td>
+            <td><label for="aluno_matricula" class="form-label">Matrícula</label></td>
+            <td colspan="3">
+                <select name="aluno_matricula" id="aluno_matricula" class="form-select">
+                 <option value="">Selecione a Matrícula</option>
+                  <?php foreach ($alunos as $aluno): ?>
+                   <option value="<?= $aluno['matricula'] ?>">
+                    <?= $aluno['matricula'] ?> - <?= htmlspecialchars($aluno['nome']) ?>
+                   </option>
+                  <?php endforeach; ?>
+                </select>
+           </td>
           </tr>
           <tr>
             <td><label for="telefone_fixo" class="form-label">Telefone Fixo</label></td>
