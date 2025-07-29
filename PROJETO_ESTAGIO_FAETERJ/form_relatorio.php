@@ -12,8 +12,6 @@ try {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -163,88 +161,111 @@ try {
   </div>
 </nav>
 
-
 <!-- Espaço para a navbar -->
 <div style="margin-top: 90px;"></div>
 
-  
-  <div class="container mt-5 mb-5">
-    <!-- Cabeçalho Azul -->
-    <div class="bg-primary text-white rounded px-3 py-2 mb-4">
-      <h4 class="mb-0">Relatórios de Estágio</h4>
-    </div>
-
-    <!-- Início do Formulário -->
-    <form action="CRUD/inserts/inserts_relatorio.php" class="border border-azul rounded p-4 bg-white shadow-sm" enctype="multipart/form-data" method="post">
-     <div class="table-responsive">    
-      <table class="table table-bordered align-middle table-striped">
-        <tbody>
-          <tr>
-            <td><label for="foto" class="form-label">Foto 3x4</label></td>
-            <td colspan="3"><input type="file" id="foto" name="foto" class="form-control"></td>
-          </tr>
-          <tr>
-            <td><label class="form-label" for="nome">Nome</label></td>
-            <td colspan="3"><input type="text" class="form-control" id="nome" name="nome"></td>
-          </tr>
-          <tr>
-            <td><label for="aluno_matricula" class="form-label">Matrícula</label></td>
-            <td colspan="3">
-                <select name="aluno_matricula" id="aluno_matricula" class="form-select">
-                 <option value="">Selecione a Matrícula</option>
-                  <?php foreach ($alunos as $aluno): ?>
-                   <option value="<?= $aluno['matricula'] ?>">
-                    <?= $aluno['matricula'] ?> - <?= htmlspecialchars($aluno['nome']) ?>
-                   </option>
-                  <?php endforeach; ?>
-                </select>
-           </td>
-          </tr>
-          <tr>
-            <td><label for="telefone_fixo" class="form-label">Telefone Fixo</label></td>
-            <td><input type="tel" id="telefone_fixo" name="telefone_fixo" class="form-control"></td>
-            <td><label for="email" class="form-label">Email</label></td>
-            <td><input type="email" id="email" name="email" class="form-control"></td>
-          </tr>
-          <tr>
-            <td><label for="empresa" class="form-label">Empresa</label></td>
-            <td><input type="text" id="empresa" name="empresa" class="form-control"></td>
-            <td><label for="tipo_estagio" class="form-label">Tipo de Estágio</label></td>
-            <td><input type="text" id="tipo_estagio" name="tipo_estagio" class="form-control"></td>
-          </tr>
-          <tr>
-            <td><label for="data_inicio" class="form-label">Período relatado (data início)</label></td>
-            <td><input type="date" id="data_inicio" name="data_inicio" class="form-control"></td>
-            <td><label for="data_final" class="form-label">Período relatado (data final)</label></td>
-            <td><input type="date" id="data_final" name="data_final" class="form-control"></td>
-          </tr>
-          <tr>
-            <td><label for="data_entrega" class="form-label">Data da Entrega</label></td>
-            <td><input type="date" id="data_entrega" name="data_entrega" class="form-control"></td>
-            <td><label for="horas_relatadas" class="form-label">Horas Relatadas</label></td>
-            <td><input type="number" id="horas_relatadas" name="horas_relatadas" class="form-control"></td>
-          </tr>
-          <tr>
-            <td><label for="n_relatorio" class="form-label">Nº Relatório</label></td>
-            <td><input type="text" id="n_relatorio" name="n_relatorio" class="form-control"></td>
-            <td><label for="parecer_tecnico" class="form-label">Parecer Técnico</label></td>
-            <td><input type="text" id="parecer_tecnico" name="parecer_tecnico" class="form-control"></td>
-          </tr>
-          <tr>
-            <td><label for="relatorio" class="form-label">Relatório</label></td>
-            <td colspan="3"><textarea id="relatorio" name="relatorio" rows="4" class="form-control"></textarea></td>
-          </tr>
-          <tr>
-            <td colspan="4" class="text-start">
-              <button type="submit" class="btn btn-primary">Enviar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-     </div>         
-    </form>
+<div class="container mt-5 mb-5">
+  <!-- Cabeçalho Azul -->
+  <div class="bg-primary text-white rounded px-3 py-2 mb-4">
+    <h4 class="mb-0">Relatórios de Estágio</h4>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Início do Formulário -->
+  <form action="CRUD/inserts/inserts_relatorio.php" class="border border-azul rounded p-4 bg-white shadow-sm" enctype="multipart/form-data" method="post">
+   <div class="table-responsive">    
+    <table class="table table-bordered align-middle table-striped">
+      <tbody>
+        <tr>
+          <td><label for="foto" class="form-label">Foto 3x4</label></td>
+          <td colspan="3"><input type="file" id="foto" name="foto" class="form-control"></td>
+        </tr>
+        <tr>
+          <td><label class="form-label" for="nome">Nome</label></td>
+          <td colspan="3"><input type="text" class="form-control" id="nome" name="nome"></td>
+        <tr>
+        <tr>
+          <td><label for="aluno_matricula" class="form-label">Matrícula do Aluno</label></td>
+          <td colspan="3">
+              <input type="text" class="form-control" id="aluno_matricula" name="aluno_matricula" placeholder="Digite a matrícula do aluno">
+          </td>
+        </tr>
+        <tr>
+          <td><label for="telefone_fixo" class="form-label">Telefone Fixo</label></td>
+          <td><input type="tel" id="telefone_fixo" name="telefone_fixo" class="form-control"></td>
+          <td><label for="email" class="form-label">Email</label></td>
+          <td><input type="email" id="email" name="email" class="form-control"></td>
+        </tr>
+        <tr>
+          <td><label for="empresa" class="form-label">Empresa</label></td>
+          <td><input type="text" id="empresa" name="empresa" class="form-control"></td>
+          <td><label for="tipo_estagio" class="form-label">Tipo de Estágio</label></td>
+          <td><input type="text" id="tipo_estagio" name="tipo_estagio" class="form-control"></td>
+        </tr>
+        <tr>
+          <td><label for="data_inicio" class="form-label">Período relatado (data início)</label></td>
+          <td><input type="date" id="data_inicio" name="data_inicio" class="form-control"></td>
+          <td><label for="data_final" class="form-label">Período relatado (data final)</label></td>
+          <td><input type="date" id="data_final" name="data_final" class="form-control"></td>
+        </tr>
+        <tr>
+          <td><label for="data_entrega" class="form-label">Data da Entrega</label></td>
+          <td><input type="date" id="data_entrega" name="data_entrega" class="form-control"></td>
+          <td><label for="horas_relatadas" class="form-label">Horas Relatadas</label></td>
+          <td><input type="number" id="horas_relatadas" name="horas_relatadas" class="form-control"></td>
+        </tr>
+        <tr>
+          <td><label for="n_relatorio" class="form-label">Nº Relatório</label></td>
+          <td><input type="text" id="n_relatorio" name="n_relatorio" class="form-control"></td>
+          <td><label for="parecer_tecnico" class="form-label">Parecer Técnico</label></td>
+          <td><input type="text" id="parecer_tecnico" name="parecer_tecnico" class="form-control"></td>
+        </tr>
+        <tr>
+          <td><label for="relatorio" class="form-label">Relatório</label></td>
+          <td colspan="3"><textarea id="relatorio" name="relatorio" rows="4" class="form-control"></textarea></td>
+        </tr>
+        <tr>
+          <td colspan="4" class="text-start">
+            <button type="submit" class="btn btn-primary">Enviar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+   </div>         
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('aluno_matricula').addEventListener('blur', function () {
+  const matricula = this.value.trim();
+  console.log('Matrícula digitada:', matricula);
+
+  if (matricula.length > 0) {
+    fetch('functions/selecao/busca_aluno.php?matricula=' + encodeURIComponent(matricula))
+      .then(response => {
+        if (!response.ok) throw new Error('Erro na resposta da rede');
+        return response.json();
+      })
+      .then(data => {
+        console.log('Dados recebidos:', data);
+
+        // Preencher apenas os campos retornados
+        document.getElementById('nome').value = data.nome || '';
+        document.getElementById('telefone_fixo').value = data.telefone_fixo || '';
+        document.getElementById('email').value = data.email || '';
+        
+        // NÃO preencher empresa ou tipo_estagio automaticamente
+      })
+      .catch(error => {
+        console.error('Erro no fetch:', error);
+      });
+  } else {
+    // Limpar campos caso matrícula seja apagada
+    document.getElementById('nome').value = '';
+    document.getElementById('telefone_fixo').value = '';
+    document.getElementById('email').value = '';
+  }
+});
+</script>
 </body>
 </html>
