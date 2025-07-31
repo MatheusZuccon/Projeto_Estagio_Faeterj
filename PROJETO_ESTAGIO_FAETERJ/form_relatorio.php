@@ -1,6 +1,8 @@
 <?php
 session_start();
 include_once "conexao/db_connect.php"; 
+include_once 'functions/exibicao/exibicao.php';
+include_once 'functions/selecao/selecao.php';
 
 try {
     $stmt = $conn->prepare("SELECT matricula, nome FROM alunos ORDER BY nome ASC");
@@ -196,10 +198,17 @@ try {
           <td><input type="email" id="email" name="email" class="form-control"></td>
         </tr>
         <tr>
-          <td><label for="empresa" class="form-label">Empresa</label></td>
-          <td><input type="text" id="empresa" name="empresa" class="form-control"></td>
-          <td><label for="tipo_estagio" class="form-label">Tipo de Estágio</label></td>
-          <td><input type="text" id="tipo_estagio" name="tipo_estagio" class="form-control"></td>
+          <td><label class="form-label" for="empresa">Empresa</label></td>
+          <td>
+            <select class="form-control form-control-sm" id="empresa" name="empresa" style="width: 100%;">
+            <option value="">Selecione a Empresa</option>
+            <?php 
+                selecionaEmpresa($empresa, $conn); 
+            ?>
+            </select>
+          </td>
+          <td><label for="modalidade" class="form-label">Tipo de Estágio</label></td>
+          <td><input type="text" id="modalidade" name="modalidade" class="form-control"></td>
         </tr>
         <tr>
           <td><label for="data_inicio" class="form-label">Período relatado (data início)</label></td>
@@ -253,8 +262,9 @@ document.getElementById('aluno_matricula').addEventListener('blur', function () 
         document.getElementById('nome').value = data.nome || '';
         document.getElementById('telefone_fixo').value = data.telefone_fixo || '';
         document.getElementById('email').value = data.email || '';
-        
-        // NÃO preencher empresa ou tipo_estagio automaticamente
+        document.getElementById('modalidade').value = data.modalidade || '';
+
+        // Campo 'empresa' NÃO deve ser preenchido automaticamente
       })
       .catch(error => {
         console.error('Erro no fetch:', error);
@@ -264,6 +274,7 @@ document.getElementById('aluno_matricula').addEventListener('blur', function () 
     document.getElementById('nome').value = '';
     document.getElementById('telefone_fixo').value = '';
     document.getElementById('email').value = '';
+    document.getElementById('modalidade').value = '';
   }
 });
 </script>

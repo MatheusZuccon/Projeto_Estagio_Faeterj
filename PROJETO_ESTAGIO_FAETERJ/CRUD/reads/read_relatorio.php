@@ -1,16 +1,29 @@
 <?php
 session_start();
 include_once "../../conexao/db_connect.php";
+include_once "../../functions/exibicao/exibicao.php";
 
 $resultados = [];
 
 try {
-    $sql = "SELECT * FROM relatorio_est";
+    $sql = "
+        SELECT 
+            relatorio_est.*, 
+            alunos.nome, 
+            alunos.email, 
+            alunos.tipo_estagio
+        FROM 
+            relatorio_est
+        JOIN 
+            alunos ON alunos.matricula = relatorio_est.aluno_matricula
+    ";
+
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 } catch (PDOException $e) {
-    echo "Erro ao buscar dados: " . $e->getMessage();
+    echo "Erro ao buscar relatórios: " . $e->getMessage();
 }
 ?>
 
@@ -197,10 +210,10 @@ try {
           <tbody>
             <?php foreach ($resultados as $row): ?>
               <tr>
-                <td><?= htmlspecialchars($row['matricula']) ?></td>
+                <td><?= htmlspecialchars($row['aluno_matricula']) ?></td>
                 <td><?= htmlspecialchars($row['nome']) ?></td>
                 <td><?= htmlspecialchars($row['email']) ?></td>
-                <td><?= htmlspecialchars($row['empresa']) ?></td>
+                <td><?= htmlspecialchars(exibeEmpresa($row['empresa'], $conn)) ?></td>
                 <td><?= htmlspecialchars($row['tipo_estagio']) ?></td>
                 <td><?= htmlspecialchars($row['data_inicio']) ?></td>
                 <td><?= htmlspecialchars($row['data_final']) ?></td>
@@ -212,8 +225,8 @@ try {
                   
                 <td>
                     <div class="d-flex gap-2 justify-content-center">
-                      <a href="../updates/updates_relatorio.php?matricula=<?= $row['matricula'] ?>" class="btn btn-sm btn-warning">Editar</a>
-                      <a href="../deletes/delete_relatorio.php?matricula=<?= $row['matricula'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este registro?')">Excluir</a>
+                      <a href="../updates/updates_relatorio.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-warning">Editar</a>
+                      <a href="../deletes/delete_relatorio.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este registro?')">Excluir</a>
                     </div>
                 </td>
 

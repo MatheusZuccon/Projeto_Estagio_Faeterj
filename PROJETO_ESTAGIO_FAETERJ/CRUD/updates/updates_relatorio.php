@@ -1,10 +1,36 @@
 <?php
 include_once "../../conexao/db_connect.php";
+include_once '../../functions/selecao/selecao.php'; 
 
-$matricula = filter_input(INPUT_GET, 'matricula', FILTER_SANITIZE_NUMBER_INT);
+// Recuperar a matrícula do aluno vinda da URL
+$aluno_matricula = filter_input(INPUT_GET, 'aluno_matricula', FILTER_SANITIZE_NUMBER_INT);
 
-$stmt = $conn->prepare("SELECT * FROM relatorio_est WHERE matricula = :matricula");
-$stmt->bindParam(':matricula', $matricula);
+// Consultar os dados do relatório e do aluno
+$sql = "
+SELECT 
+    relatorio_est.aluno_matricula,
+    relatorio_est.empresa,
+    relatorio_est.data_inicio,
+    relatorio_est.data_final,
+    relatorio_est.data_entrega,
+    relatorio_est.horas_relatadas,
+    relatorio_est.n_relatorio,
+    relatorio_est.parecer_tecnico,
+    relatorio_est.relatorio,
+    alunos.nome, 
+    alunos.email,
+    alunos.modalidade
+FROM 
+    relatorio_est
+JOIN 
+    alunos ON alunos.matricula = relatorio_est.aluno_matricula
+WHERE 
+    relatorio_est.aluno_matricula = :aluno_matricula
+";
+
+
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':aluno_matricula', $aluno_matricula, PDO::PARAM_INT);
 $stmt->execute();
 $dados = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -12,7 +38,9 @@ if (!$dados) {
     echo "Registro não encontrado.";
     exit;
 }
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -48,27 +76,32 @@ if (!$dados) {
   <div class="form-container border border-primary">
     <h4 class="text-primary mb-4">Editar Relatório</h4>
     <form action="updates_relatorio_process.php" method="post">
-      <input type="hidden" name="matricula" value="<?= htmlspecialchars($dados['matricula']) ?>">
-
-      <div class="mb-3">
-        <label>Matrícula</label>
-        <input type="number" class="form-control" name="matricula" value="<?= htmlspecialchars($dados['matricula']) ?>">
-      </div>
-
+      <input type="hidden" name="aluno_matricula" value="<?= htmlspecialchars($dados['aluno_matricula']) ?>">
       <div class="mb-3">
         <label>Nome</label>
-        <input type="text" class="form-control" name="nome" value="<?= htmlspecialchars($dados['nome']) ?>">
+        <input type="text" class="form-control" value="<?= htmlspecialchars($dados['nome']) ?>" readonly>
       </div>
 
       <div class="mb-3">
         <label>Email</label>
-        <input type="email" class="form-control" name="email" value="<?= htmlspecialchars($dados['email']) ?>">
+        <input type="email" class="form-control" value="<?= htmlspecialchars($dados['email']) ?>" readonly>
       </div>
-  
+
       <div class="mb-3">
         <label>Empresa</label>
-        <input type="text" class="form-control" name="empresa" value="<?= htmlspecialchars($dados['empresa']) ?>">
+         <select class="form-control" name="local_estagio">
+          <option value="">Selecione a Empresa</option>
+          <?php 
+                selecionaEmpresa($dados['empresa'], $conn); 
+          ?>
+          </select>
       </div>
+    
+      <div class="mb-3">
+        <label>Tipo de Estagio</label>
+        <input type="text" class="form-control" value="<?= htmlspecialchars($dados['modalidade']) ?>" readonly>
+      </div>
+
 
       <div class="mb-3">
         <label>Data de Início Relatada</label>
@@ -79,7 +112,7 @@ if (!$dados) {
         <label>Data Final Relatada</label>
         <input type="date" class="form-control" name="data_final" value="<?= htmlspecialchars($dados['data_final']) ?>">
       </div>
-        
+
       <div class="mb-3">
         <label>Data de Entrega</label>
         <input type="date" class="form-control" name="data_entrega" value="<?= htmlspecialchars($dados['data_entrega']) ?>">
@@ -88,25 +121,23 @@ if (!$dados) {
       <div class="mb-3">
         <label>Horas Relatadas</label>
         <input type="number" class="form-control" name="horas_relatadas" value="<?= htmlspecialchars($dados['horas_relatadas']) ?>">
-      </div>    
-        
+      </div>
+
       <div class="mb-3">
         <label>Nº do Relatório</label>
         <input type="text" class="form-control" name="n_relatorio" value="<?= htmlspecialchars($dados['n_relatorio']) ?>">
-      </div> 
-        
+      </div>
+
       <div class="mb-3">
         <label>Parecer Técnico</label>
         <input type="text" class="form-control" name="parecer_tecnico" value="<?= htmlspecialchars($dados['parecer_tecnico']) ?>">
       </div>
-        
+
       <div class="mb-3">
         <label>Relatório</label>
         <textarea class="form-control" name="relatorio" rows="5"><?= htmlspecialchars($dados['relatorio']) ?></textarea>
       </div>
 
-        
-        
       <div class="text-end">
         <button type="submit" class="btn btn-primary">Salvar</button>
       </div>

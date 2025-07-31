@@ -7,7 +7,7 @@ if (isset($_GET['matricula'])) {
     try {
         $stmt = $conn->prepare("
             SELECT 
-                a.nome, a.telefone_fixo, a.email
+                a.nome, a.telefone_fixo, a.email, a.modalidade
             FROM alunos a
             WHERE a.matricula = :matricula
             LIMIT 1
@@ -20,7 +20,8 @@ if (isset($_GET['matricula'])) {
             echo json_encode([
                 'nome' => $aluno['nome'],
                 'telefone_fixo' => $aluno['telefone_fixo'],
-                'email' => $aluno['email']
+                'email' => $aluno['email'],
+                'modalidade' => $aluno['modalidade']
             ]);
         } else {
             echo json_encode([]);
