@@ -1,6 +1,7 @@
 <?php
 include_once "../../conexao/db_connect.php";
 include_once '../../functions/selecao/selecao.php'; 
+include_once "../../functions/exibicao/exibicao.php";
 
 // Recuperar a matrícula do aluno vinda da URL
 $aluno_matricula = filter_input(INPUT_GET, 'aluno_matricula', FILTER_SANITIZE_NUMBER_INT);
@@ -19,6 +20,7 @@ SELECT
     relatorio_est.relatorio,
     alunos.nome, 
     alunos.email,
+    alunos.local_estagio,
     alunos.modalidade
 FROM 
     relatorio_est
@@ -86,15 +88,10 @@ if (!$dados) {
         <label>Email</label>
         <input type="email" class="form-control" value="<?= htmlspecialchars($dados['email']) ?>" readonly>
       </div>
-
+        
       <div class="mb-3">
         <label>Empresa</label>
-         <select class="form-control" name="local_estagio">
-          <option value="">Selecione a Empresa</option>
-          <?php 
-                selecionaEmpresa($dados['empresa'], $conn); 
-          ?>
-          </select>
+        <input type="text" class="form-control" value="<?= htmlspecialchars(exibeEmpresa($dados['local_estagio'], $conn)) ?>" readonly>
       </div>
     
       <div class="mb-3">

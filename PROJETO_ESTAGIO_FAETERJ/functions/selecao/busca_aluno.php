@@ -1,13 +1,14 @@
 <?php
 include_once "../../conexao/db_connect.php";
+include_once '../exibicao/exibicao.php';
 
 if (isset($_GET['matricula'])) {
     $matricula = $_GET['matricula'];
-
+    
     try {
         $stmt = $conn->prepare("
             SELECT 
-                a.nome, a.telefone_fixo, a.email, a.modalidade
+                a.nome, a.telefone_fixo, a.email, a.local_estagio, a.modalidade
             FROM alunos a
             WHERE a.matricula = :matricula
             LIMIT 1
@@ -17,10 +18,12 @@ if (isset($_GET['matricula'])) {
         $aluno = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($aluno) {
+            $empresa = exibeEmpresa($aluno['local_estagio'], $conn);
             echo json_encode([
                 'nome' => $aluno['nome'],
                 'telefone_fixo' => $aluno['telefone_fixo'],
                 'email' => $aluno['email'],
+                'local_estagio' => $empresa,
                 'modalidade' => $aluno['modalidade']
             ]);
         } else {

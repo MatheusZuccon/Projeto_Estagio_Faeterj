@@ -2,9 +2,7 @@
 session_start();
 include_once "../../conexao/db_connect.php";
 
-// Dados vindos do formulário
 $aluno_matricula     = filter_input(INPUT_POST, 'aluno_matricula', FILTER_SANITIZE_NUMBER_INT);
-$empresa             = filter_input(INPUT_POST, 'empresa', FILTER_SANITIZE_STRING);
 $data_inicio         = filter_input(INPUT_POST, 'data_inicio', FILTER_SANITIZE_NUMBER_INT);
 $data_final          = filter_input(INPUT_POST, 'data_final', FILTER_SANITIZE_NUMBER_INT);
 $data_entrega        = filter_input(INPUT_POST, 'data_entrega', FILTER_SANITIZE_NUMBER_INT);
@@ -18,7 +16,6 @@ try {
 
     $insert = "INSERT INTO relatorio_est (
         aluno_matricula,
-        empresa,
         data_inicio,
         data_final,
         data_entrega,
@@ -28,7 +25,6 @@ try {
         relatorio
     ) VALUES (
         :aluno_matricula,
-        :empresa,
         :data_inicio,
         :data_final,
         :data_entrega,
@@ -40,7 +36,6 @@ try {
 
     $stmt = $conn->prepare($insert);
     $stmt->bindParam(':aluno_matricula', $aluno_matricula);
-    $stmt->bindParam(':empresa', $empresa);
     $stmt->bindParam(':data_inicio', $data_inicio);
     $stmt->bindParam(':data_final', $data_final);
     $stmt->bindParam(':data_entrega', $data_entrega);

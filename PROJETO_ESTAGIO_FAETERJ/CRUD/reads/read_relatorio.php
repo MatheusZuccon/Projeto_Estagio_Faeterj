@@ -11,6 +11,7 @@ try {
             relatorio_est.*, 
             alunos.nome, 
             alunos.email, 
+            alunos.local_estagio,
             alunos.tipo_estagio
         FROM 
             relatorio_est
@@ -213,7 +214,7 @@ try {
                 <td><?= htmlspecialchars($row['aluno_matricula']) ?></td>
                 <td><?= htmlspecialchars($row['nome']) ?></td>
                 <td><?= htmlspecialchars($row['email']) ?></td>
-                <td><?= htmlspecialchars(exibeEmpresa($row['empresa'], $conn)) ?></td>
+                <td><?= htmlspecialchars(exibeEmpresa($row['local_estagio'], $conn)) ?></td>
                 <td><?= htmlspecialchars($row['tipo_estagio']) ?></td>
                 <td><?= htmlspecialchars($row['data_inicio']) ?></td>
                 <td><?= htmlspecialchars($row['data_final']) ?></td>

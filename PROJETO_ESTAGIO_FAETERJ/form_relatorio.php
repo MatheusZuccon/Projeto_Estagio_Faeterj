@@ -173,8 +173,8 @@ try {
   </div>
 
   <!-- Início do Formulário -->
-  <form action="CRUD/inserts/inserts_relatorio.php" class="border border-azul rounded p-4 bg-white shadow-sm" enctype="multipart/form-data" method="post">
-   <div class="table-responsive">    
+<form action="CRUD/inserts/inserts_relatorio.php" class="border border-azul rounded p-4 bg-white shadow-sm" enctype="multipart/form-data" method="post">
+  <div class="table-responsive">    
     <table class="table table-bordered align-middle table-striped">
       <tbody>
         <tr>
@@ -182,14 +182,13 @@ try {
           <td colspan="3"><input type="file" id="foto" name="foto" class="form-control"></td>
         </tr>
         <tr>
-          <td><label class="form-label" for="nome">Nome</label></td>
-          <td colspan="3"><input type="text" class="form-control" id="nome" name="nome"></td>
-        <tr>
-        <tr>
           <td><label for="aluno_matricula" class="form-label">Matrícula do Aluno</label></td>
           <td colspan="3">
-              <input type="text" class="form-control" id="aluno_matricula" name="aluno_matricula" placeholder="Digite a matrícula do aluno">
+            <input type="text" class="form-control" id="aluno_matricula" name="aluno_matricula" placeholder="Digite a matrícula do aluno">
           </td>
+        </tr>
+          <td><label class="form-label" for="nome">Nome</label></td>
+          <td colspan="3"><input type="text" class="form-control" id="nome" name="nome"></td>
         </tr>
         <tr>
           <td><label for="telefone_fixo" class="form-label">Telefone Fixo</label></td>
@@ -198,15 +197,8 @@ try {
           <td><input type="email" id="email" name="email" class="form-control"></td>
         </tr>
         <tr>
-          <td><label class="form-label" for="empresa">Empresa</label></td>
-          <td>
-            <select class="form-control form-control-sm" id="empresa" name="empresa" style="width: 100%;">
-            <option value="">Selecione a Empresa</option>
-            <?php 
-                selecionaEmpresa($empresa, $conn); 
-            ?>
-            </select>
-          </td>
+          <td><label for="local_estagio" class="form-label">Empresa</label></td>
+          <td><input type="text" id="local_estagio" name="local_estagio" class="form-control"></td>
           <td><label for="modalidade" class="form-label">Tipo de Estágio</label></td>
           <td><input type="text" id="modalidade" name="modalidade" class="form-control"></td>
         </tr>
@@ -239,9 +231,9 @@ try {
         </tr>
       </tbody>
     </table>
-   </div>         
-  </form>
-</div>
+  </div>         
+</form>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
@@ -263,6 +255,7 @@ document.getElementById('aluno_matricula').addEventListener('blur', function () 
         document.getElementById('telefone_fixo').value = data.telefone_fixo || '';
         document.getElementById('email').value = data.email || '';
         document.getElementById('modalidade').value = data.modalidade || '';
+        document.getElementById('local_estagio').value = data.local_estagio || ''; 
 
         // Campo 'empresa' NÃO deve ser preenchido automaticamente
       })
@@ -275,6 +268,8 @@ document.getElementById('aluno_matricula').addEventListener('blur', function () 
     document.getElementById('telefone_fixo').value = '';
     document.getElementById('email').value = '';
     document.getElementById('modalidade').value = '';
+    document.getElementById('local_estagio').value = '';
+
   }
 });
 </script>

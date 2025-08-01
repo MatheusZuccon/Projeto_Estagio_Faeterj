@@ -3,7 +3,6 @@ include_once "../../conexao/db_connect.php";
 
 
 $aluno_matricula            = filter_input(INPUT_POST, 'aluno_matricula', FILTER_SANITIZE_NUMBER_INT);
-$empresa              = filter_input(INPUT_POST, 'empresa', FILTER_SANITIZE_STRING);
 $data_inicio          = filter_input(INPUT_POST, 'data_inicio', FILTER_SANITIZE_NUMBER_INT);
 $data_final           = filter_input(INPUT_POST, 'data_final', FILTER_SANITIZE_NUMBER_INT);
 $data_entrega         = filter_input(INPUT_POST, 'data_entrega', FILTER_SANITIZE_NUMBER_INT);
@@ -13,8 +12,7 @@ $parecer_tecnico      = filter_input(INPUT_POST, 'parecer_tecnico', FILTER_SANIT
 $relatorio            = filter_input(INPUT_POST, 'relatorio', FILTER_SANITIZE_STRING);
 
 $sql = "UPDATE relatorio_est
-        SET empresa = :empresa,
-            data_inicio = :data_inicio,
+        SET data_inicio = :data_inicio,
             data_final = :data_final,
             data_entrega = :data_entrega,
             horas_relatadas = :horas_relatadas,
@@ -24,7 +22,6 @@ $sql = "UPDATE relatorio_est
         WHERE aluno_matricula = :aluno_matricula";
 
 $update = $conn->prepare($sql);
-$update->bindParam(':empresa', $empresa);
 $update->bindParam(':data_inicio', $data_inicio);
 $update->bindParam(':data_final', $data_final);
 $update->bindParam(':data_entrega', $data_entrega);
