@@ -3,15 +3,8 @@
     include_once "../../conexao/db_connect.php";
 
     //Criação das variáveis
-    $nome                 = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
-    $matricula            = filter_input(INPUT_POST, 'matricula', FILTER_SANITIZE_NUMBER_INT);
-    $email                = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $telefone_celular    = filter_input(INPUT_POST, 'telefone_celular', FILTER_SANITIZE_STRING);
+    $aluno_matricula     = filter_input(INPUT_POST, 'aluno_matricula', FILTER_SANITIZE_NUMBER_INT);
     $numero_tce           = filter_input(INPUT_POST, 'numero_tce', FILTER_SANITIZE_STRING);
-    $empresa              = filter_input(INPUT_POST, 'empresa', FILTER_SANITIZE_STRING);
-    $inicio_estagio       = filter_input(INPUT_POST, 'inicio_estagio', FILTER_SANITIZE_NUMBER_INT);
-    $termino_estagio      = filter_input(INPUT_POST, 'termino_estagio', FILTER_SANITIZE_NUMBER_INT);
-   
 
     /*Testes da entrada dos dados
     //echo "nome: " . $nome . "<br>";
@@ -26,35 +19,16 @@
 
     $conn -> beginTransaction();
         $insert = "INSERT INTO tce (
-            matricula,
-            nome,
-            email,
-            telefone_celular,
-            numero_tce,
-            empresa,
-            inicio_estagio,
-            termino_estagio
+            aluno_matricula,
+            numero_tce
         ) VALUES (
-            :matricula,
-            :nome,
-            :email,
-            :telefone_celular,
-            :numero_tce,
-            :empresa,
-            :inicio_estagio,
-            :termino_estagio
+            :aluno_matricula,
+            :numero_tce
         )";
         $stmt = $conn -> prepare ($insert);
-        $stmt -> bindParam(':matricula',$matricula);
-        $stmt->bindParam(':nome', $nome);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':telefone_celular', $telefone_celular);
+        $stmt -> bindParam(':aluno_matricula',$aluno_matricula);
         $stmt->bindParam(':numero_tce', $numero_tce);
-        $stmt->bindParam(':empresa', $empresa);
-        $stmt->bindParam(':inicio_estagio', $inicio_estagio);
-        $stmt->bindParam(':termino_estagio', $termino_estagio);
-
-
+       
         $stmt->execute();
         $conn->commit();
 

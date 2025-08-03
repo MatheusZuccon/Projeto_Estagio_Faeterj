@@ -1,4 +1,19 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include_once "conexao/db_connect.php"; 
+include_once 'functions/exibicao/exibicao.php';
+include_once 'functions/selecao/selecao.php';
+
+try {
+    $stmt = $conn->prepare("SELECT matricula, nome FROM alunos ORDER BY nome ASC");
+    $stmt->execute();
+    $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erro ao buscar alunos: " . $e->getMessage();
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -171,24 +186,26 @@
             <td colspan="3"><input type="file" class="form-control" id="foto" name="foto"></td>
           </tr>
           <tr>
-            <td><label class="form-label" for="nome">Nome</label></td>
-            <td colspan="3"><input type="text" class="form-control" id="nome" name="nome"></td>
+          <td><label for="aluno_matricula" class="form-label">Matrícula do Aluno</label></td>
+          <td colspan="3">
+            <input type="text" class="form-control" id="aluno_matricula" name="aluno_matricula" placeholder="Digite a matrícula do aluno">
+          </td>
           </tr>
           <tr>
-            <td><label class="form-label" for="matricula">Matrícula</label></td>
-            <td colspan="3"><input type="text" class="form-control" id="matricula" name="matricula"></td>
+            <td><label class="form-label" for="nome">Nome</label></td>
+            <td colspan="3"><input type="text" class="form-control" id="nome" name="nome"></td>
           </tr>
           <tr>
             <td><label class="form-label" for="email">Email</label></td>
             <td><input type="email" class="form-control" id="email" name="email"></td>
             <td><label class="form-label" for="telefone_celular">Telefone Celular</label></td>
             <td><input type="tel" class="form-control" id="telefone_celular" name="telefone_celular"></td>
-          </tr>
+          </tr> 
           <tr>
             <td><label class="form-label" for="numero_tce">Nº TCE</label></td>
             <td><input type="text" class="form-control" id="numero_tce" name="numero_tce"></td>	
-            <td><label class="form-label" for="empresa">Empresa</label></td>
-            <td><input type="text" class="form-control" id="empresa" name="empresa"></td>
+            <td><label class="form-label" for="local_estagio">Empresa</label></td>
+            <td><input type="text" class="form-control" id="local_estagio" name="local_estagio"></td>
           </tr>
           <tr>
             <td><label class="form-label" for="inicio_estagio">Início do Estágio</label></td>
@@ -209,6 +226,41 @@
 
 <!-- Bootstrap JS (coloque no final do body para garantir funcionamento dos dropdowns) -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('aluno_matricula').addEventListener('blur', function () {
+  const matricula = this.value.trim();
+  console.log('Matrícula digitada:', matricula);
 
+  if (matricula.length > 0) {
+    fetch('functions/selecao/busca_aluno.php?matricula=' + encodeURIComponent(matricula))
+      .then(response => {
+        if (!response.ok) throw new Error('Erro na resposta da rede');
+        return response.json();
+      })
+      .then(data => {
+        console.log('Dados recebidos:', data);
+
+        // Preencher apenas os campos retornados
+        document.getElementById('nome').value = data.nome || '';
+        document.getElementById('email').value = data.email || '';
+        document.getElementById('telefone_celular').value = data.telefone_celular || '';
+        document.getElementById('local_estagio').value = data.local_estagio || ''; 
+        document.getElementById('inicio_estagio').value = data.inicio_estagio || ''; 
+        document.getElementById('termino_estagio').value = data.termino_estagio || ''; 
+      })
+      .catch(error => {
+        console.error('Erro no fetch:', error);
+      });
+  } else {
+    // Limpar campos caso matrícula seja apagada
+    document.getElementById('nome').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('telefone_celular').value = '';
+    document.getElementById('local_estagio').value = '';
+    document.getElementById('inicio_estagio').value = '';
+    document.getElementById('termino_estagio').value = '';
+  }
+});
+</script>
 </body>
 </html>

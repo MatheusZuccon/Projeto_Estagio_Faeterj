@@ -81,20 +81,17 @@ if (!$dados) {
         </div>
       </div>
 
-      <div class="row mb-3">
-        <div class="col">
-          <label>Gênero</label>
-          <select class="form-control" name="genero">
-          <option value="">Selecione o Gênero</option>
-          <?php 
-                selecionaGenero($dados['genero'], $conn); 
-          ?>
-          </select>
-        </div>
-        <div class="col">
-          <label>CPF</label>
-          <input type="text" class="form-control" name="cpf" value="<?= htmlspecialchars($dados['cpf']) ?>">
-        </div>
+      <div class="mb-3">
+        <label>Gênero</label>
+        <select class="form-control" name="genero">
+            <option value="">Selecione o Gênero</option>
+            <?php selecionaGenero($dados['genero'], $conn); ?>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label>CPF</label>
+        <input type="text" class="form-control" name="cpf" value="<?= htmlspecialchars($dados['cpf']) ?>">
       </div>
 
       <div class="row mb-3">
@@ -121,28 +118,22 @@ if (!$dados) {
         <div class="col">
           <label>Bairro</label>
           <select class="form-control" name="bairro">
-          <option value="">Selecione o Bairro</option>
-          <?php 
-                selecionaBairro($dados['bairro'], $conn); 
-          ?>
+            <option value="">Selecione o Bairro</option>
+            <?php selecionaBairro($dados['bairro'], $conn); ?>
           </select>
         </div>
         <div class="col">
           <label>Cidade</label>
           <select class="form-control" name="cidade">
-          <option value="">Selecione a Cidade</option>
-          <?php 
-                selecionaCidade($dados['cidade'], $conn); 
-          ?>
+            <option value="">Selecione a Cidade</option>
+            <?php selecionaCidade($dados['cidade'], $conn); ?>
           </select>
         </div>
         <div class="col">
           <label>UF</label>
           <select class="form-control" name="uf">
-          <option value="">Selecione o UF</option>
-          <?php 
-                selecionaUF($dados['uf'], $conn); 
-          ?>
+            <option value="">Selecione o UF</option>
+            <?php selecionaUF($dados['uf'], $conn); ?>
           </select>
         </div>
       </div>
@@ -167,19 +158,15 @@ if (!$dados) {
         <div class="col">
           <label>Unidade de Ensino</label>
           <select class="form-control" name="unidade_ensino">
-          <option value="">Selecione a UE</option>
-          <?php 
-                selecionaUnidade($dados['unidade_ensino'], $conn); 
-          ?>
+            <option value="">Selecione a UE</option>
+            <?php selecionaUnidade($dados['unidade_ensino'], $conn); ?>
           </select>
         </div>
         <div class="col">
           <label>Curso</label>
           <select class="form-control" name="curso">
-          <option value="">Selecione o Curso</option>
-          <?php 
-                selecionaCurso($dados['curso'], $conn); 
-          ?>
+            <option value="">Selecione o Curso</option>
+            <?php selecionaCurso($dados['curso'], $conn); ?>
           </select>
         </div>
       </div>
@@ -195,95 +182,102 @@ if (!$dados) {
         </div>
       </div>
 
-        <tr>
-          <td><label class="form-label" for="tipo_estagio">Externo/Interno</label></td>
-          <td>
-            <select class="form-control" id="tipo_estagio" name="tipo_estagio">
-              <option <?= $dados['tipo_estagio'] == 'Selecione' ? 'selected' : '' ?>>Selecione</option>
-              <option <?= $dados['tipo_estagio'] == 'Externo' ? 'selected' : '' ?>>Externo</option>
-              <option <?= $dados['tipo_estagio'] == 'Interno' ? 'selected' : '' ?>>Interno</option>
-            </select>
-          </td>
-          <td><label class="form-label" for="local_estagio">Local de Estágio</label></td>
-          <select class="form-control" name="local_estagio">
-          <option value="">Selecione a Empresa</option>
-          <?php 
-                selecionaEmpresa($dados['local_estagio'], $conn); 
-          ?>
-          </select>
-        </tr>
-
-        <tr>
-          <td><label class="form-label" for="seguro">Seguro</label></td>
-          <td>
-            <select class="form-control" id="seguro" name="seguro">
-              <option <?= $dados['seguro'] == 'Selecione' ? 'selected' : '' ?>>Selecione</option>
-              <option <?= $dados['seguro'] == 'FAETEC' ? 'selected' : '' ?>>FAETEC</option>
-              <option <?= $dados['seguro'] == 'Empresa' ? 'selected' : '' ?>>Empresa</option>
-            </select>
-          </td>
-          <td><label class="form-label" for="tipo_convenio">Tipo de Convênio</label></td>
-          <select class="form-control" name="tipo_convenio">
-          <option value="">Selecione o Convênio</option>
-          <?php 
-                selecionaConvenio($dados['tipo_convenio'], $conn); 
-          ?>
-          </select>
-        </tr>
-
-        <tr>
-          <td><label class="form-label" for="inicio_estagio">Início do Estágio</label></td>
-          <td><input type="date" class="form-control" id="inicio_estagio" name="inicio_estagio" value="<?= $dados['inicio_estagio'] ?>"></td>
-          <td><label class="form-label" for="termino_estagio">Término do Estágio</label></td>
-          <td><input type="date" class="form-control" id="termino_estagio" name="termino_estagio" value="<?= $dados['termino_estagio'] ?>"></td>
-        </tr>
-
-        <tr>
-          <td><label class="form-label" for="status_estagio">Status do Estágio</label></td>
-          <td><input type="text" class="form-control" id="status_estagio" name="status_estagio" value="<?= $dados['status_estagio'] ?>"></td>
-          <td><label class="form-label" for="remunerado">Remunerado</label></td>
-          <td><input type="text" class="form-control" id="remunerado" name="remunerado" value="<?= $dados['remunerado'] ?>"></td>
-        </tr>
-
-        <tr>
-          <td><label class="form-label" for="obrigatorio">Obrigatório</label></td>
-          <td>
-            <select class="form-control" id="obrigatorio" name="obrigatorio">
-              <option <?= $dados['obrigatorio'] == 'Selecione' ? 'selected' : '' ?>>Selecione</option>
-              <option <?= $dados['obrigatorio'] == 'Sim' ? 'selected' : '' ?>>Sim</option>
-              <option <?= $dados['obrigatorio'] == 'Não' ? 'selected' : '' ?>>Não</option>
-            </select>
-          </td>
-          <div class="col">
-          <label>Seguradora</label>
-          <select class="form-control" name="seguradora">
-          <option value="">Selecione a Seguradora</option>
-          <?php 
-                selecionaSeguradora($dados['seguradora'], $conn); 
-          ?>
+      <div class="row mb-3">
+        <div class="col">
+          <label>Externo/Interno</label>
+          <select class="form-control" name="tipo_estagio">
+            <option <?= $dados['tipo_estagio'] == 'Selecione' ? 'selected' : '' ?>>Selecione</option>
+            <option <?= $dados['tipo_estagio'] == 'Externo' ? 'selected' : '' ?>>Externo</option>
+            <option <?= $dados['tipo_estagio'] == 'Interno' ? 'selected' : '' ?>>Interno</option>
           </select>
         </div>
-        </tr>
+        <div class="col">
+          <label>Local de Estágio</label>
+          <select class="form-control" name="local_estagio">
+            <option value="">Selecione a Empresa</option>
+            <?php selecionaEmpresa($dados['local_estagio'], $conn); ?>
+          </select>
+        </div>
+      </div>
 
-        <tr>
-          <td><label class="form-label" for="modalidade">Modalidade</label></td>
-          <td>
-            <select class="form-control" id="modalidade" name="modalidade">
-              <option <?= $dados['modalidade'] == 'Selecione' ? 'selected' : '' ?>>Selecione</option>
-              <option <?= $dados['modalidade'] == 'Presencial' ? 'selected' : '' ?>>Presencial</option>
-              <option <?= $dados['modalidade'] == 'Remoto' ? 'selected' : '' ?>>Remoto</option>
-              <option <?= $dados['modalidade'] == 'Híbrido' ? 'selected' : '' ?>>Híbrido</option>
-            </select>
-          </td>
-          <td><label class="form-label" for="programa">Programa</label></td>
-          <td><input type="text" class="form-control" id="programa" name="programa" value="<?= $dados['programa'] ?>"></td>
-        </tr>
+      <div class="row mb-3">
+        <div class="col">
+          <label>Seguro</label>
+          <select class="form-control" name="seguro">
+            <option <?= $dados['seguro'] == 'Selecione' ? 'selected' : '' ?>>Selecione</option>
+            <option <?= $dados['seguro'] == 'FAETEC' ? 'selected' : '' ?>>FAETEC</option>
+            <option <?= $dados['seguro'] == 'Empresa' ? 'selected' : '' ?>>Empresa</option>
+          </select>
+        </div>
+        <div class="col">
+          <label>Tipo de Convênio</label>
+          <select class="form-control" name="tipo_convenio">
+            <option value="">Selecione o Convênio</option>
+            <?php selecionaConvenio($dados['tipo_convenio'], $conn); ?>
+          </select>
+        </div>
+      </div>
 
-        <tr>
+      <div class="row mb-3">
+        <div class="col">
+          <label>Início do Estágio</label>
+          <input type="date" class="form-control" name="inicio_estagio" value="<?= $dados['inicio_estagio'] ?>">
+        </div>
+        <div class="col">
+          <label>Término do Estágio</label>
+          <input type="date" class="form-control" name="termino_estagio" value="<?= $dados['termino_estagio'] ?>">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label>Status do Estágio</label>
+          <input type="text" class="form-control" name="status_estagio" value="<?= $dados['status_estagio'] ?>">
+        </div>
+        <div class="col">
+          <label>Remunerado</label>
+          <input type="text" class="form-control" name="remunerado" value="<?= $dados['remunerado'] ?>">
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label>Obrigatório</label>
+          <select class="form-control" name="obrigatorio">
+            <option <?= $dados['obrigatorio'] == 'Selecione' ? 'selected' : '' ?>>Selecione</option>
+            <option <?= $dados['obrigatorio'] == 'Sim' ? 'selected' : '' ?>>Sim</option>
+            <option <?= $dados['obrigatorio'] == 'Não' ? 'selected' : '' ?>>Não</option>
+          </select>
+        </div>
+        <div class="col">
+          <label>Seguradora</label>
+          <select class="form-control" name="seguradora">
+            <option value="">Selecione a Seguradora</option>
+            <?php selecionaSeguradora($dados['seguradora'], $conn); ?>
+          </select>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <div class="col">
+          <label>Modalidade</label>
+          <select class="form-control" name="modalidade">
+            <option <?= $dados['modalidade'] == 'Selecione' ? 'selected' : '' ?>>Selecione</option>
+            <option <?= $dados['modalidade'] == 'Presencial' ? 'selected' : '' ?>>Presencial</option>
+            <option <?= $dados['modalidade'] == 'Remoto' ? 'selected' : '' ?>>Remoto</option>
+            <option <?= $dados['modalidade'] == 'Híbrido' ? 'selected' : '' ?>>Híbrido</option>
+          </select>
+        </div>
+        <div class="col">
+          <label>Programa</label>
+          <input type="text" class="form-control" name="programa" value="<?= $dados['programa'] ?>">
+        </div>
+      </div>
 
       <div class="text-end">
         <button type="submit" class="btn btn-primary">Salvar</button>
       </div>
+
     </form>
   </div>
 </div>

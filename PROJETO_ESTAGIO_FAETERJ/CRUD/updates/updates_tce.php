@@ -1,10 +1,32 @@
 <?php
 include_once "../../conexao/db_connect.php";
+include_once '../../functions/selecao/selecao.php'; 
+include_once "../../functions/exibicao/exibicao.php";
 
-$matricula = filter_input(INPUT_GET, 'matricula', FILTER_SANITIZE_NUMBER_INT);
+// Recuperar a matrícula do aluno vinda da URL
+$aluno_matricula = filter_input(INPUT_GET, 'aluno_matricula', FILTER_SANITIZE_NUMBER_INT);
 
-$stmt = $conn->prepare("SELECT * FROM tce WHERE matricula = :matricula");
-$stmt->bindParam(':matricula', $matricula);
+$sql = "
+SELECT 
+    tce.aluno_matricula,
+    tce.numero_tce,
+    alunos.nome, 
+    alunos.email,
+    alunos.telefone_celular,
+    alunos.local_estagio,
+    alunos.inicio_estagio,
+    alunos.termino_estagio
+FROM 
+    tce
+JOIN 
+    alunos ON alunos.matricula = tce.aluno_matricula
+WHERE 
+    tce.aluno_matricula = :aluno_matricula
+";
+
+
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':aluno_matricula', $aluno_matricula, PDO::PARAM_INT);
 $stmt->execute();
 $dados = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -12,6 +34,7 @@ if (!$dados) {
     echo "Registro não encontrado.";
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -48,26 +71,21 @@ if (!$dados) {
   <div class="form-container border border-primary">
     <h4 class="text-primary mb-4">Editar TCE</h4>
     <form action="updates_tce_process.php" method="post">
-      <input type="hidden" name="matricula" value="<?= htmlspecialchars($dados['matricula']) ?>">
-
-      <div class="mb-3">
-        <label>Matrícula</label>
-        <input type="number" class="form-control" name="matricula" value="<?= htmlspecialchars($dados['matricula']) ?>">
-      </div>
+      <input type="hidden" name="aluno_matricula" value="<?= htmlspecialchars($dados['aluno_matricula']) ?>">
 
       <div class="mb-3">
         <label>Nome</label>
-        <input type="text" class="form-control" name="nome" value="<?= htmlspecialchars($dados['nome']) ?>">
+        <input type="text" class="form-control" name="nome" value="<?= htmlspecialchars($dados['nome']) ?>" readonly>
       </div>
 
       <div class="mb-3">
         <label>Email</label>
-        <input type="email" class="form-control" name="email" value="<?= htmlspecialchars($dados['email']) ?>">
+        <input type="email" class="form-control" name="email" value="<?= htmlspecialchars($dados['email']) ?>" readonly>
       </div>
 
       <div class="mb-3">
         <label>Telefone Celular</label>
-        <input type="tel" class="form-control" name="telefone_celular" value="<?= htmlspecialchars($dados['telefone_celular']) ?>">
+        <input type="tel" class="form-control" name="telefone_celular" value="<?= htmlspecialchars($dados['telefone_celular']) ?>" readonly>
       </div>
 
       <div class="mb-3">
@@ -77,17 +95,17 @@ if (!$dados) {
 
       <div class="mb-3">
         <label>Empresa</label>
-        <input type="text" class="form-control" name="empresa" value="<?= htmlspecialchars($dados['empresa']) ?>">
+        <input type="text" class="form-control" name="empresa" value="<?= htmlspecialchars(exibeEmpresa($dados['local_estagio'], $conn)) ?>" readonly>
       </div>
 
       <div class="mb-3">
         <label>Início do Estágio</label>
-        <input type="date" class="form-control" name="inicio_estagio" value="<?= htmlspecialchars($dados['inicio_estagio']) ?>">
+        <input type="date" class="form-control" name="inicio_estagio" value="<?= htmlspecialchars($dados['inicio_estagio']) ?>" readonly>
       </div>
 
       <div class="mb-3">
         <label>Término do Estágio</label>
-        <input type="date" class="form-control" name="termino_estagio" value="<?= htmlspecialchars($dados['termino_estagio']) ?>">
+        <input type="date" class="form-control" name="termino_estagio" value="<?= htmlspecialchars($dados['termino_estagio']) ?>" readonly>
       </div>
 
       <div class="text-end">

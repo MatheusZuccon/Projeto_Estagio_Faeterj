@@ -1,16 +1,32 @@
 <?php
 session_start();
 include_once "../../conexao/db_connect.php";
+include_once "../../functions/exibicao/exibicao.php";
 
 $resultados = [];
 
 try {
-    $sql = "SELECT * FROM tce";
+    $sql = "
+        SELECT 
+            tce.*, 
+            alunos.nome, 
+            alunos.email, 
+            alunos.telefone_celular,
+            alunos.local_estagio,
+            alunos.inicio_estagio,
+            alunos.termino_estagio
+        FROM 
+            tce
+        JOIN 
+            alunos ON alunos.matricula = tce.aluno_matricula
+    ";
+
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 } catch (PDOException $e) {
-    echo "Erro ao buscar dados: " . $e->getMessage();
+    echo "Erro ao buscar relatórios: " . $e->getMessage();
 }
 ?>
 
@@ -192,17 +208,17 @@ try {
           <tbody>
             <?php foreach ($resultados as $row): ?>
               <tr>
-                <td><?= htmlspecialchars($row['matricula']) ?></td>
+                <td><?= htmlspecialchars($row['aluno_matricula']) ?></td>
                 <td><?= htmlspecialchars($row['nome']) ?></td>
                 <td><?= htmlspecialchars($row['email']) ?></td>
                 <td><?= htmlspecialchars($row['telefone_celular']) ?></td>
                 <td><?= htmlspecialchars($row['numero_tce']) ?></td>
-                <td><?= htmlspecialchars($row['empresa']) ?></td>
+                <td><?= htmlspecialchars(exibeEmpresa($row['local_estagio'], $conn)) ?></td>
                 <td><?= htmlspecialchars($row['inicio_estagio']) ?></td>
                 <td><?= htmlspecialchars($row['termino_estagio']) ?></td>
                 <td class="text-center">
-                  <a href="../updates/updates_tce.php?matricula=<?= $row['matricula'] ?>" class="btn btn-sm btn-warning">Editar</a>
-                  <a href="../deletes/deletes_tce.php?matricula=<?= $row['matricula'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este registro?')">Excluir</a>
+                  <a href="../updates/updates_tce.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-warning">Editar</a>
+                  <a href="../deletes/deletes_tce.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este registro?')">Excluir</a>
                 </td>
               </tr>
             <?php endforeach; ?>
