@@ -1,4 +1,18 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include_once "conexao/db_connect.php"; 
+include_once 'functions/exibicao/exibicao.php';
+include_once 'functions/selecao/selecao.php';
+
+try {
+    $stmt = $conn->prepare("SELECT matricula, nome FROM alunos ORDER BY nome ASC");
+    $stmt->execute();
+    $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erro ao buscar alunos: " . $e->getMessage();
+    exit;
+}
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -63,7 +77,7 @@
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
       <!-- Marca -->
-      <a class="navbar-brand d-flex align-items-center" href="#">
+      <a class="navbar-brand d-flex align-items-center" href="home.php">
         <img src="imagens/dragao_faeterj_att.png" alt="Logo" width="30" height="30" class="me-2">
         Sistema de Estágios
       </a>
@@ -169,12 +183,12 @@
             <td colspan="3"><input type="file" class="form-control" id="foto" name="foto"></td>
           </tr>
           <tr>
-            <td><label class="form-label" for="nome">Nome</label></td>
-            <td colspan="3"><input type="text" class="form-control" id="nome" name="nome"></td>
+            <td><label class="form-label" for="aluno_matricula">Matrícula</label></td>
+            <td colspan="3"><input type="text" class="form-control" id="aluno_matricula" name="aluno_matricula"></td>
           </tr>
           <tr>
-            <td><label class="form-label" for="matricula">Matrícula</label></td>
-            <td colspan="3"><input type="text" class="form-control" id="matricula" name="matricula"></td>
+            <td><label class="form-label" for="nome">Nome</label></td>
+            <td colspan="3"><input type="text" class="form-control" id="nome" name="nome"></td>
           </tr>
           <tr>
             <td><label class="form-label" for="email">Email</label></td>
@@ -182,9 +196,8 @@
             <td><label class="form-label" for="numero_tce">Nº TCE</label></td>
             <td><input type="text" class="form-control" id="numero_tce" name="numero_tce"></td>
           </tr>
-          <tr>
-            <td><label class="form-label" for="empresa">Empresa</label></td>
-            <td><input type="text" class="form-control" id="empresa" name="empresa"></td>
+            <td><label class="form-label" for="local_estagio">Empresa</label></td>
+            <td><input type="text" class="form-control" id="local_estagio" name="local_estagio"></td>
             <td><label class="form-label" for="inicio_estagio">Início do Estágio</label></td>
             <td><input type="date" class="form-control" id="inicio_estagio" name="inicio_estagio"></td>
           </tr>
@@ -205,6 +218,43 @@
     </form>  
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.getElementById('aluno_matricula').addEventListener('blur', function () {
+  const matricula = this.value.trim();
+  console.log('Matrícula digitada:', matricula);
+
+  if (matricula.length > 0) {
+    fetch('functions/selecao/busca_aluno.php?matricula=' + encodeURIComponent(matricula))
+      .then(response => {
+        if (!response.ok) throw new Error('Erro na resposta da rede');
+        return response.json();
+      })
+      .then(data => {
+        console.log('Dados recebidos:', data);
+
+        // Preencher apenas os campos retornados
+        document.getElementById('nome').value = data.nome || '';
+        document.getElementById('email').value = data.email || '';
+        document.getElementById('local_estagio').value = data.local_estagio || ''; 
+        document.getElementById('inicio_estagio').value = data.inicio_estagio || ''; 
+        document.getElementById('termino_estagio').value = data.termino_estagio || ''; 
+        document.getElementById('numero_tce').value = data.numero_tce || ''; 
+      })
+      .catch(error => {
+        console.error('Erro no fetch:', error);
+      });
+  } else {
+    // Limpar campos caso matrícula seja apagada
+    document.getElementById('nome').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('local_estagio').value = '';
+    document.getElementById('inicio_estagio').value = '';
+    document.getElementById('termino_estagio').value = '';
+    document.getElementById('numero_tce').value = '';
+
+  }
+});
+</script>
 </body>
 </html>

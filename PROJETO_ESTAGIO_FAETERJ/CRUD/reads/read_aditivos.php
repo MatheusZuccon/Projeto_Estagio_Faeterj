@@ -1,18 +1,39 @@
 <?php
 session_start();
 include_once "../../conexao/db_connect.php";
+include_once "../../functions/exibicao/exibicao.php";
 
 $resultados = [];
 
 try {
-    $sql = "SELECT * FROM ta";
+    $sql = "
+        SELECT 
+            ta.*,
+            tce.numero_tce,
+            alunos.nome, 
+            alunos.email, 
+            alunos.telefone_celular,
+            alunos.local_estagio,
+            alunos.inicio_estagio,
+            alunos.termino_estagio
+        FROM 
+            ta
+        JOIN 
+            tce ON ta.aluno_matricula = tce.aluno_matricula
+        JOIN 
+            alunos ON alunos.matricula = ta.aluno_matricula
+
+    ";
+
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 } catch (PDOException $e) {
-    echo "Erro ao buscar dados: " . $e->getMessage();
+    echo "Erro ao buscar relatórios: " . $e->getMessage();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -77,7 +98,7 @@ try {
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
       <!-- Marca -->
-      <a class="navbar-brand d-flex align-items-center" href="#">
+      <a class="navbar-brand d-flex align-items-center" href="../../home.php">
         <img src="../../imagens/dragao_faeterj_att.png" alt="Logo" width="30" height="30" class="me-2">
         Sistema de Estágios
       </a>
@@ -194,17 +215,17 @@ try {
           <tbody>
             <?php foreach ($resultados as $row): ?>
               <tr>
-                <td><?= htmlspecialchars($row['matricula']) ?></td>
+                <td><?= htmlspecialchars($row['aluno_matricula']) ?></td>
                 <td><?= htmlspecialchars($row['nome']) ?></td>
                 <td><?= htmlspecialchars($row['email']) ?></td>
                 <td><?= htmlspecialchars($row['numero_tce']) ?></td>
-                <td><?= htmlspecialchars($row['empresa']) ?></td>
+                <td><?= htmlspecialchars(exibeEmpresa($row['local_estagio'], $conn)) ?></td>
                 <td><?= htmlspecialchars($row['inicio_estagio']) ?></td>
                 <td><?= htmlspecialchars($row['termino_estagio']) ?></td>
                 <td><?= htmlspecialchars($row['novo_termino_estagio']) ?></td>
                 <td class="text-center">
-                  <a href="../updates/updates_aditivos.php?matricula=<?= $row['matricula'] ?>" class="btn btn-sm btn-warning">Editar</a>
-                  <a href="../deletes/deletes_aditivos.php?matricula=<?= $row['matricula'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este registro?')">Excluir</a>
+                  <a href="../updates/updates_aditivos.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-warning">Editar</a>
+                  <a href="../deletes/deletes_aditivos.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este registro?')">Excluir</a>
                 </td>
               </tr>
             <?php endforeach; ?>

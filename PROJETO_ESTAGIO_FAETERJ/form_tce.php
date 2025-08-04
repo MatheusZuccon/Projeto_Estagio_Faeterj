@@ -82,7 +82,7 @@ try {
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
       <!-- Marca -->
-      <a class="navbar-brand d-flex align-items-center" href="#">
+      <a class="navbar-brand d-flex align-items-center" href="home.php">
         <img src="imagens/dragao_faeterj_att.png" alt="Logo" width="30" height="30" class="me-2">
         Sistema de Estágios
       </a>

@@ -85,7 +85,7 @@
 
     <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
       <!-- Marca -->
-      <a class="navbar-brand d-flex align-items-center" href="#">
+      <a class="navbar-brand d-flex align-items-center" href="home.php">
         <img src="imagens/dragao_faeterj_att.png" alt="Logo" width="30" height="30" class="me-2">
         Sistema de Estágios
       </a>
@@ -190,7 +190,37 @@
 <div class="container text-center">
   <img src="imagens/dragao_faeterj_att.png" alt="Logo" class="img-fluid img-fade" width="30%">
 </div>
+    
+<!-- texto estagio -->
+<div class="text-start mt-5" style="max-width: 800px; margin-left:auto; margin-right:auto; line-height: 1.8;">
+  <h1 class="text-center" style="color:#005999;">Estágio</h1>
+  <h5 class="text-center text-secondary mb-4">Informações sobre estágios</h5>
+  <h6 class="text-center text-secondary mb-4"<p><strong>Email:</strong> <a href="mailto:estagio@faeterj-petropolis.edu.br">estagio@faeterj-petropolis.edu.br</a></p>
 
+  <h3 class="mt-4"><strong>ATENÇÃO:</strong></h3>
+
+  <h4 class="mt-4"><strong>Estágio Supervisionado</strong></h4>
+
+  <p>A realização de <strong>300 horas</strong> de estágio supervisionado (modalidade Empresa) ou de <strong>960 horas</strong> (na modalidade Mundo do Trabalho) é requisito obrigatório para a conclusão do curso. O estágio é realizado de acordo com regulamento próprio, aprovado pelo conselho acadêmico, em conformidade com o setor de estágios da FAETEC e previsto na legislação vigente.</p>
+
+  <p>O estágio supervisionado inicia-se a partir do 2º período. No entanto, é possível iniciar no 1º período, mediante avaliação e aprovação de um professor designado pela coordenação de estágios.</p>
+
+  <p>O estágio é supervisionado pelos professores designados para orientação e supervisão, os quais acompanharão o seu trabalho, desde a aprovação do projeto com as atividades a serem realizadas (equivalente ao Plano de Atividades acima mencionado), assinado pelo supervisor da instituição conveniada, quando as atividades não constarem na documentação do contrato.</p>
+
+  <p>A FAETERJ-Petrópolis também oferece estágio curricular supervisionado em instituições conveniadas da região.</p>
+
+  <p><strong>IMPORTANTE:</strong> Se já estiver trabalhando no mercado formal, em área de informática ou de tecnologia, poderá justificar as suas horas de estágio apresentando a Carteira de Trabalho e Previdência Social (CTPS) devidamente registrada, e uma Declaração de Atividades informando as atividades a serem realizadas na Empresa, emitida e assinada pela empresa em questão (equivalente ao Plano de Atividades acima mencionado). A contabilização das horas se dará a partir da aprovação da documentação pelo Setor de Estágios. Esta modalidade é chamada de Vivência no Mundo do Trabalho. O número de horas a comprovar nesta modalidade são 960 horas.</p>
+
+  <p><strong>IMPORTANTE:</strong> o Setor de Estágio deve sempre ser consultado para a realização de estágio, qualquer que seja a modalidade.</p>
+
+  <p><strong>Email:</strong> <a href="mailto:estagio@faeterj-petropolis.edu.br">estagio@faeterj-petropolis.edu.br</a></p>
+</div>
+
+
+<!-- Footer -->
+<footer class="bg-primary text-white text-center py-3 mt-5">
+  © Faeterj Petrópolis 2025. Todos os direitos reservados.
+</footer>
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

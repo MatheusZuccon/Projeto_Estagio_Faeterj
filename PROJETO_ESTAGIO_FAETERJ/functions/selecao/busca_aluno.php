@@ -8,8 +8,17 @@ if (isset($_GET['matricula'])) {
     try {
         $stmt = $conn->prepare("
             SELECT 
-                a.nome, a.telefone_celular, a.telefone_fixo, a.email, a.inicio_estagio, a.termino_estagio, a.local_estagio, a.modalidade
+                a.nome,
+                a.telefone_celular,
+                a.telefone_fixo,
+                a.email,
+                a.inicio_estagio,
+                a.termino_estagio,
+                a.local_estagio,
+                a.modalidade,
+                t.numero_tce
             FROM alunos a
+            LEFT JOIN tce t ON a.matricula = t.aluno_matricula
             WHERE a.matricula = :matricula
             LIMIT 1
         ");
@@ -20,14 +29,15 @@ if (isset($_GET['matricula'])) {
         if ($aluno) {
             $empresa = exibeEmpresa($aluno['local_estagio'], $conn);
             echo json_encode([
-                'nome' => $aluno['nome'],
-                'telefone_fixo' => $aluno['telefone_fixo'],
-                'telefone_celular' => $aluno['telefone_celular'],
-                'email' => $aluno['email'],
-                'inicio_estagio'  => $aluno['inicio_estagio'],
-                'termino_estagio'  => $aluno['termino_estagio'],
-                'local_estagio' => $empresa,
-                'modalidade' => $aluno['modalidade']
+                'nome'              => $aluno['nome'],
+                'telefone_fixo'     => $aluno['telefone_fixo'],
+                'telefone_celular'  => $aluno['telefone_celular'],
+                'email'             => $aluno['email'],
+                'inicio_estagio'    => $aluno['inicio_estagio'],
+                'termino_estagio'   => $aluno['termino_estagio'],
+                'local_estagio'     => $empresa,
+                'modalidade'        => $aluno['modalidade'],
+                'numero_tce'        => $aluno['numero_tce']
             ]);
         } else {
             echo json_encode([]);
