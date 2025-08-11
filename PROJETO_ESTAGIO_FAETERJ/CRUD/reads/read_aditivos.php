@@ -18,9 +18,9 @@ try {
             alunos.termino_estagio
         FROM 
             ta
-        JOIN 
+        LEFT JOIN 
             tce ON ta.aluno_matricula = tce.aluno_matricula
-        JOIN 
+        LEFT JOIN 
             alunos ON alunos.matricula = ta.aluno_matricula
 
     ";
