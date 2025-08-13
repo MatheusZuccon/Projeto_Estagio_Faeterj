@@ -226,11 +226,11 @@ try {
                   
                 <td>
                     <div class="d-flex gap-2 justify-content-center">
-                      <a href="../updates/updates_relatorio.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-warning">Editar</a>
-                      <a href="../deletes/delete_relatorio.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este registro?')">Excluir</a>
+                        <a href="../updates/updates_relatorio.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="../deletes/delete_relatorio.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-danger" onclick="return confirm('Deseja excluir este registro?')">Excluir</a>
+                        <a href="../pdf/gerar_relatorio.php?aluno_matricula=<?= $row['aluno_matricula'] ?>" class="btn btn-sm btn-primary" target="_blank">Gerar PDF</a>
                     </div>
                 </td>
-
             <?php endforeach; ?>
           </tbody>
         </table>
