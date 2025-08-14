@@ -18,7 +18,8 @@ $sql = "SELECT
             alunos.nome AS aluno_nome,
             alunos.matricula,
             alunos.email AS aluno_email,
-            alunos.telefone_celular AS aluno_telefone
+            alunos.telefone_celular AS aluno_telefone,
+            alunos.local_estagio AS empresa
         FROM relatorio_est
           JOIN alunos ON alunos.matricula = relatorio_est.aluno_matricula
         WHERE alunos.matricula = :matricula";
@@ -38,15 +39,24 @@ $aluno_nome           = $dados['aluno_nome'];
 $aluno_matricula      = $dados['matricula'];
 $aluno_email          = $dados['aluno_email'];
 $aluno_telefone       = $dados['aluno_telefone'];
+$empresa              = $dados['empresa' ];
 
-// Inclui o template HTML
-include "modelo_relatorio.php"; // gera $html
+// Caminho da logo
+$logo = __DIR__ . '/../../imagens/logo_rj.jpg';
+$logo = str_replace('\\','/',$logo); // corrige barras
 
-// Gera o PDF
+// Captura HTML
+ob_start();
+include __DIR__ . "/modelo_relatorio.php";
+$html = ob_get_clean();
+
+// Gera PDF
 $dompdf = new Dompdf();
+$dompdf->set_option('isRemoteEnabled', true);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 
-// Baixa o PDF
+// Envia para download
 $dompdf->stream("relatorio_estagio_" . $aluno_matricula . ".pdf", ["Attachment" => true]);
+exit;
