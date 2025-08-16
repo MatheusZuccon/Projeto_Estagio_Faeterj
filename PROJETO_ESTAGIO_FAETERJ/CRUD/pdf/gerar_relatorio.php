@@ -3,8 +3,8 @@ require '../../vendor/autoload.php';
 
 use Dompdf\Dompdf;
 
-// Conexão com o banco
 include_once "../../conexao/db_connect.php";
+include_once '../../functions/exibicao/exibicao.php';
 
 // Pega matrícula via GET
 $matricula = isset($_GET['aluno_matricula']) ? $_GET['aluno_matricula'] : '';
@@ -19,7 +19,11 @@ $sql = "SELECT
             alunos.matricula,
             alunos.email AS aluno_email,
             alunos.telefone_celular AS aluno_telefone,
-            alunos.local_estagio AS empresa
+            alunos.local_estagio AS empresa,
+            relatorio_est.data_inicio AS data_inicio,
+            relatorio_est.data_final AS data_final,
+            relatorio_est.horas_relatadas AS horas_relatadas,
+            relatorio_est.relatorio AS relatorio
         FROM relatorio_est
           JOIN alunos ON alunos.matricula = relatorio_est.aluno_matricula
         WHERE alunos.matricula = :matricula";
@@ -40,6 +44,8 @@ $aluno_matricula      = $dados['matricula'];
 $aluno_email          = $dados['aluno_email'];
 $aluno_telefone       = $dados['aluno_telefone'];
 $empresa              = $dados['empresa' ];
+$horas_relatadas      = $dados['horas_relatadas'];
+$relatorio            = $dados['relatorio'];
 
 // Caminho da logo
 $logo = __DIR__ . '/../../imagens/logo_rj.jpg';

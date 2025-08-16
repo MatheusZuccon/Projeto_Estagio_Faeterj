@@ -10,7 +10,6 @@ $aluno_matricula = filter_input(INPUT_GET, 'aluno_matricula', FILTER_SANITIZE_NU
 $sql = "
 SELECT 
     relatorio_est.aluno_matricula,
-    relatorio_est.empresa,
     relatorio_est.data_inicio,
     relatorio_est.data_final,
     relatorio_est.data_entrega,

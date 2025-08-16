@@ -78,6 +78,26 @@ try {
   .nav-link.active {
     font-weight: 600;
   }
+         
+  .table {
+  table-layout: fixed;   /* trava o cálculo automático */
+  width: 100%;           /* ocupa todo o container */
+}
+
+.table th, 
+.table td {
+  white-space: normal;   /* permite quebra de linha */
+  word-wrap: break-word; /* quebra textos longos */
+  vertical-align: middle;
+  padding: 8px;
+  font-size: 14px;
+}
+.table td.acoes {
+  display: flex;
+  justify-content: center;
+  gap: 5px;   /* espaço entre botões */
+}
+
   </style>
 </head>
 <body>
@@ -193,21 +213,23 @@ try {
       <div class="table-responsive border border-azul rounded bg-white shadow-sm p-3">
         <table class="table table-bordered align-middle table-striped">
           <thead class="table-azul text-center">
-            <tr>
-              <th>Matrícula</th>
-              <th>Nome</th>
-              <th>Email</th>
-              <th>Empresa</th>
-              <th>Tipo de Estágio</th>
-              <th>Início</th>
-              <th>Término</th>
-              <th>Entrega</th>
-              <th>Horas Relatadas</th>
-              <th>Nº do Relatório</th>
-              <th>Parecer Técnico</th>
-              <th>Relatório</th>
-              <th>Ações</th>
+          <tr>
+            <th style="width: 20%;">Matrícula</th>
+            <th style="width: 20%;">Nome</th>
+            <th style="width: 25%;">Email</th>
+            <th style="width: 15%;">Empresa</th>
+            <th style="width: 12%;">Tipo</th>
+            <th style="width: 10%;">Início</th>
+            <th style="width: 10%;">Término</th>
+            <th style="width: 10%;">Entrega</th>
+            <th style="width: 10%;">Horas</th>
+            <th style="width: 15%;">Nº Rel.</th>
+            <th style="width: 15%;">Parecer</th>
+            <th style="width: 40%;">Relatório</th>
+            <th style="width: 34%;">Ações</th>
+          </tr>
           </thead>
+
           <tbody>
             <?php foreach ($resultados as $row): ?>
               <tr>
