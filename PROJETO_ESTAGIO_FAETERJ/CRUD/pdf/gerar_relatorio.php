@@ -20,13 +20,18 @@ $sql = "SELECT
             alunos.email AS aluno_email,
             alunos.telefone_celular AS aluno_telefone,
             alunos.local_estagio AS empresa,
+            alunos.inicio_estagio AS inicio_estagio,
+            alunos.termino_estagio AS termino_estagio,
             relatorio_est.data_inicio AS data_inicio,
             relatorio_est.data_final AS data_final,
             relatorio_est.horas_relatadas AS horas_relatadas,
-            relatorio_est.relatorio AS relatorio
+            relatorio_est.relatorio AS relatorio,
+            relatorio_est.data_insercao AS data_insercao
+
         FROM relatorio_est
           JOIN alunos ON alunos.matricula = relatorio_est.aluno_matricula
         WHERE alunos.matricula = :matricula";
+          
 
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':matricula', $matricula);
@@ -46,6 +51,13 @@ $aluno_telefone       = $dados['aluno_telefone'];
 $empresa              = $dados['empresa' ];
 $horas_relatadas      = $dados['horas_relatadas'];
 $relatorio            = $dados['relatorio'];
+$data_insercao        = $dados['data_insercao'];
+$data_inicio          = $dados['data_inicio'];
+$data_final           = $dados['data_final'];
+$inicio_estagio       = $dados['inicio_estagio'];
+$termino_estagio      = $dados['termino_estagio'];
+
+
 
 // Caminho da logo
 $logo = __DIR__ . '/../../imagens/logo_rj.jpg';

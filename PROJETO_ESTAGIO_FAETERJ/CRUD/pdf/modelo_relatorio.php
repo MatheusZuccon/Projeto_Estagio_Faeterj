@@ -108,37 +108,66 @@ $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
         <td><strong>Chancela da empresa:</strong></td>
         <td colspan="3"></td>
     </tr>
-</table>
+
 
 <!-- Período relatado -->
-<table>
+
     <tr>
         <td style="width: 20%;"><strong>Período Relatado:</strong></td>
-        <td style="width: 30%;">__/__/____ a __/__/____</td>
+        <td style="width: 30%;">
+        <?= !empty($data_inicio) ? date('d/m/Y', strtotime($data_inicio)) : '' ?>
+        à 
+        <?= !empty($data_final) ? date('d/m/Y', strtotime($data_final)) : '' ?>
+        </td>
         <td style="width: 20%;"><strong>Horas relatadas:</strong></td>
         <td style="width: 30%;"><?= htmlspecialchars($horas_relatadas ?? '') ?></td>
     </tr>
+        <?php
+        //$dataFormatada = '';
+            //if (!empty($data_insercao)) {
+            //$dateObj = DateTime::createFromFormat('Y-m-d H:i:s', $data_insercao);
+                //if ($dateObj) {
+                    //$dataFormatada = $dateObj->format('d/m/Y');
+               // } 
+                //else {
+                        // Se vier só no formato Y-m-d
+                        //$dateObj = DateTime::createFromFormat('Y-m-d', $data_insercao);
+                        //if ($dateObj) {
+                            //$dataFormatada = $dateObj->format('d/m/Y');
+                        //}
+                //}
+           // }
+        ?>
     <tr>
-        <td><strong>Data:</strong></td>
-        <td colspan="3">__/__/____</td>
+    <td><strong>Data:</strong></td>
+    <td colspan="3"><?= !empty($data_insercao) ? date('d/m/Y', strtotime($data_insercao)) : '' ?></td>
     </tr>
 </table>
 
-<!-- Período do contrato -->
-<table>
+    <!-- Período do contrato -->
+<div class="text-center fw-bold" 
+     style="font-size: 12pt; margin-top:10px; margin-bottom:10px; text-decoration: underline;">
+    Período de contrato
+</div>
+
+  <table>
     <tr>
         <td style="width: 25%;"><strong>Termo de Compromisso:</strong></td>
-        <td style="width: 25%;">__/__/____ a __/__/____</td>
+        <td style="width: 25%;"><?= !empty($inicio_estagio) ? date('d/m/Y', strtotime($inicio_estagio)) : '' ?>
+        à 
+        <?= !empty($termino_estagio) ? date('d/m/Y', strtotime($termino_estagio)) : '' ?></td>
         <td style="width: 25%;"><strong>Termo Aditivo:</strong></td>
         <td style="width: 25%;">__/__/____ a __/__/____</td>
     </tr>
-</table>
+  </table>
 
 <!-- Quebra de página -->
 <div style="page-break-before: always;"></div>
-
 <!-- Reservado para a instituição -->
-<h3>Reservado para a Instituição de Ensino</h3>
+<div class="text-center fw-bold" 
+     style="font-size: 12pt; margin-top:10px; margin-bottom:10px; text-decoration: underline;">
+    Reservado para a Instituição de Ensino
+</div>
 <p class="fw-bold">Examinadores (Instituição)</p>
 
 <table>
@@ -157,7 +186,10 @@ $base64 = 'data:image/' . $type . ';base64,' . base64_encode($data);
 </table>
 
 <!-- Coordenação de estágios -->
-<h3>Coordenação de Estágios</h3>
+<div class="text-center fw-bold" 
+     style="font-size: 12pt; margin-top:10px; margin-bottom:10px; text-decoration: underline;">
+    Coordenação de Estágios
+</div>
 <table>
     <tr>
         <td style="width: 30%;"><strong>Nome completo:</strong></td>
