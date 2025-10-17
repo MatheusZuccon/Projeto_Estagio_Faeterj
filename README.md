@@ -1,6 +1,7 @@
 # 🛰️Projeto_Estagio_Faeterj
 
 Sistema WEB para gerenciar os estagiários da FAETERJ-Petrópolis. 
+![Imagem do WhatsApp de 2025-10-17 à(s) 16 40 14_ae9751b9](https://github.com/user-attachments/assets/f00d176a-ad56-4855-85e6-be77579ae24f)
 
 ---
 
